@@ -1,0 +1,10 @@
+/.nimble
+/nimcache
+/htmldocs
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.o
+*.out
