@@ -16,7 +16,8 @@ steps, and delivery systems that need auditable execution records.
 
 ## Status
 
-Early prototype. The current version provides:
+FlowLogbook v0.1.0 is focused on execution records, resume decisions, and
+adapter-friendly event history. Within that scope, the current version provides:
 
 - deterministic task fingerprints
 - structured run inputs and output artifacts
@@ -27,6 +28,7 @@ Early prototype. The current version provides:
 - explicit schema version metadata for durable stores
 - latest-record lookup plus full history access
 - node and edge events for executed or externally observed flows
+- FlowCaptain-style batch validation through `LogbookInput`
 - resume decisions with explicit reasons
 - reusable policy controls for output and digest requirements
 - focused tests for cache hit, miss, failed run, missing output, and invalid
@@ -137,6 +139,18 @@ ledger.recordEvent(nodeEvent(
   durationMillis = 1200,
   metrics = @[kv("records", "42")]
 ))
+```
+
+For component integration, validate records and events as a batch before
+persisting them:
+
+```nim
+let input = initLogbookInput(records = @[completed], events = @[
+  nodeEvent("evt-2", "runner", "flow", "run-1", "publish", fekNodeFinished,
+    status = rsCompleted)
+])
+let outcome = validate(input)
+doAssert outcome.ok
 ```
 
 More examples are available in `examples/`:
