@@ -16,8 +16,9 @@ steps, and delivery systems that need auditable execution records.
 
 ## Status
 
-FlowLogbook v0.1.0 is focused on execution records, resume decisions, and
-adapter-friendly event history. Within that scope, the current version provides:
+FlowLogbook v0.2.0 is focused on execution records, resume decisions,
+adapter-friendly event history, and event-quality metrics. Within that scope,
+the current version provides:
 
 - deterministic task fingerprints
 - structured run inputs and output artifacts
@@ -28,6 +29,8 @@ adapter-friendly event history. Within that scope, the current version provides:
 - explicit schema version metadata for durable stores
 - latest-record lookup plus full history access
 - node and edge events for executed or externally observed flows
+- event metrics for timing coverage, metric density, node/edge event counts,
+  metric event counts, and total observed duration
 - FlowCaptain-style batch validation through `LogbookInput`
 - resume decisions with explicit reasons
 - reusable policy controls for output and digest requirements
@@ -139,6 +142,14 @@ ledger.recordEvent(nodeEvent(
   durationMillis = 1200,
   metrics = @[kv("records", "42")]
 ))
+```
+
+Event metrics can be calculated from collected flow events:
+
+```nim
+let metrics = events.eventMetrics()
+echo metrics.timingCoverage
+echo metrics.metricDensity
 ```
 
 For component integration, validate records and events as a batch before
