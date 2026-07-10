@@ -16,7 +16,7 @@ steps, and delivery systems that need auditable execution records.
 
 ## Status
 
-FlowLogbook v0.2.0 is focused on execution records, resume decisions,
+FlowLogbook v0.3.0 is focused on execution records, resume decisions,
 adapter-friendly event history, and event-quality metrics. Within that scope,
 the current version provides:
 
@@ -31,6 +31,8 @@ the current version provides:
 - node and edge events for executed or externally observed flows
 - event metrics for timing coverage, metric density, node/edge event counts,
   metric event counts, and total observed duration
+- operational metrics for cycle time, wait/blocking time, throughput, failure
+  rate, defect rate, retry rate, and first-pass yield
 - FlowCaptain-style batch validation through `LogbookInput`
 - resume decisions with explicit reasons
 - reusable policy controls for output and digest requirements
@@ -150,6 +152,17 @@ Event metrics can be calculated from collected flow events:
 let metrics = events.eventMetrics()
 echo metrics.timingCoverage
 echo metrics.metricDensity
+```
+
+Operational metrics can be calculated from the same events when a caller wants
+to analyze throughput, cycle time, wait time, failure rate, defect rate, retry
+rate, or first-pass yield across a flow:
+
+```nim
+let ops = events.operationalMetrics()
+echo ops.averageCycleTimeMillis
+echo ops.throughputPerHour
+echo ops.defectRate
 ```
 
 For component integration, validate records and events as a batch before

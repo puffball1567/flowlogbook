@@ -1,4 +1,4 @@
-version       = "0.2.0"
+version       = "0.3.0"
 author        = "flowlogbook contributors"
 description   = "Execution ledger and resume-decision primitives for repeatable tasks."
 license       = "Apache-2.0"
