@@ -6,3 +6,4 @@ include ./test_memory_store
 include ./test_sqlite_store
 include ./test_postgres_store
 include ./test_redis_store
+include ./test_memory_model
