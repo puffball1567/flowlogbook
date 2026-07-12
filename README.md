@@ -16,7 +16,7 @@ steps, and delivery systems that need auditable execution records.
 
 ## Status
 
-FlowLogbook v0.3.0 is focused on execution records, resume decisions,
+FlowLogbook v0.3.1 is focused on execution records, resume decisions,
 adapter-friendly event history, and event-quality metrics. Within that scope,
 the current version provides:
 
@@ -232,6 +232,15 @@ Live adapter tests are opt-in so normal test runs do not require local services:
 FLOWLOGBOOK_TEST_REDIS=1 nimble test
 FLOWLOGBOOK_TEST_POSTGRES=1 FLOWLOGBOOK_POSTGRES_CONNINFO='host=127.0.0.1 dbname=flowlogbook_test user=flowlogbook' nimble test
 ```
+
+Run the ARC leak probe with Valgrind:
+
+```bash
+nimble leak
+```
+
+The leak probe builds a release binary under Nim ARC and fails on definite or
+indirect leaks reported by Valgrind.
 
 For a disposable PostgreSQL test database:
 
